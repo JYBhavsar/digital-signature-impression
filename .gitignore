@@ -1,0 +1,16 @@
+target/
+.mvn/
+.project
+.classpath
+.settings/
+.idea/
+*.iml
+*.log
+/logs/
+/bin/
+*.jar
+*.war
+*.class
+*.db
+*.DS_Store
+application.properties
