@@ -1,0 +1,70 @@
+<!-- src/main/resources/templates/upload.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Upload • Sign & Verify</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+  <h1>Digital Signature Uploader & Verifier</h1>
+
+  <!-- SIGNING FORM -->
+  <form method="post" enctype="multipart/form-data" th:action="@{/upload}">
+    <fieldset>
+      <legend>Sign Data</legend>
+      <div>
+        <label for="text">Text to Sign:</label><br/>
+        <textarea id="text" name="text" rows="4" cols="50"
+                  th:text="${text} ?: ''"></textarea>
+      </div>
+      <div>
+        <label for="file">Or Upload File:</label><br/>
+        <input type="file" id="file" name="file"/>
+      </div>
+      <button type="submit">Generate Signature</button>
+    </fieldset>
+  </form>
+
+  <div th:if="${signature}">
+    <h2>Signature Result</h2>
+    <p><strong>Input:</strong> <span th:text="${inputLabel}"></span></p>
+    <p><strong>Signature (Base64):</strong></p>
+    <textarea rows="4" cols="80" readonly th:text="${signature}"></textarea>
+  </div>
+
+  <hr/>
+
+  <!-- VERIFICATION FORM -->
+  <form method="post" enctype="multipart/form-data" th:action="@{/verify}">
+    <fieldset>
+      <legend>Verify Signature</legend>
+      <div>
+        <label for="verifyText">Text to Verify:</label><br/>
+        <textarea id="verifyText" name="verifyText" rows="4" cols="50"
+                  th:text="${verifyText} ?: ''"></textarea>
+      </div>
+      <div>
+        <label for="verifyFile">Or Upload File:</label><br/>
+        <input type="file" id="verifyFile" name="verifyFile"/>
+      </div>
+      <div>
+        <label for="verifySignature">Signature (Base64):</label><br/>
+        <textarea id="verifySignature" name="verifySignature" rows="4" cols="80"
+                  th:text="${verifySignature} ?: ''"></textarea>
+      </div>
+      <button type="submit">Verify</button>
+    </fieldset>
+  </form>
+
+  <div th:if="${verificationResult != null}">
+    <h2>Verification Result</h2>
+    <p>
+      <strong>Input:</strong> <span th:text="${inputLabel}"></span><br/>
+      <strong>Signature:</strong> <span th:text="${verifySignature}"></span><br/>
+      <strong>Result:</strong>
+      <span th:text="${verificationResult} ? 'VALID ✅' : 'INVALID ❌'"></span>
+    </p>
+  </div>
+</body>
+</html>

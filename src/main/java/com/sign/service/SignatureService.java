@@ -12,6 +12,7 @@ public class SignatureService {
     private CryptoUtil cryptoUtil;
 
     public String generateRSASignature(byte[] data) throws Exception {
+    	System.out.println("data--------::"+data);
         return cryptoUtil.signDataRSA(data);
     }
 
