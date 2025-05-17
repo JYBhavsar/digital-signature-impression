@@ -20,7 +20,8 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody User user) {
-        if (userService.findByUsername(user.getUsername()).isPresent()) {
+    	String username = user.getUsername().toString();
+        if (userService.findByUsername(username) != null) {
             return ResponseEntity.badRequest().body("Username already taken");
         }
         user.setPasswordHash(passwordEncoder.encode(user.getPasswordHash()));
@@ -32,7 +33,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
         var userOpt = userService.findByUsername(user.getUsername());
-        if (userOpt.isEmpty() || !passwordEncoder.matches(user.getPasswordHash(), userOpt.get().getPasswordHash())) {
+        if (userOpt.equals(null) || !passwordEncoder.matches(user.getPasswordHash(), userOpt.getPasswordHash())) {
             return ResponseEntity.status(401).body("Invalid credentials");
         }
         String token = jwtUtil.generateToken(user.getUsername());

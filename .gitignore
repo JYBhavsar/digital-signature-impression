@@ -9,6 +9,10 @@ target/
 /logs/
 /bin/
 *.jar
+private_key.pem
+public_key.pem
+Generatedkey
+
 *.war
 *.class
 *.db

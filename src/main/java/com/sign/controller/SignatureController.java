@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sign.service.SignatureService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
+@SecurityRequirement(name = "BearerAuth")
 @RestController
 @RequestMapping("/api/signature")
 public class SignatureController {
