@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Upload & Sign</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+  <h1>Digital Signature Uploader</h1>
+  <form method="post" enctype="multipart/form-data" th:action="@{/upload}">
+    <div>
+      <label for="text">Text to Sign:</label>
+      <textarea id="text" name="text" rows="4" cols="50"></textarea>
+    </div>
+    <div>
+      <label for="file">Upload Document:</label>
+      <input type="file" id="file" name="file" />
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+
+  <div th:if="${filename}">
+    <h2>Uploaded:</h2>
+    <p><strong>File:</strong> <span th:text="${filename}"></span></p>
+    <p><strong>Text:</strong> <span th:text="${text}"></span></p>
+  </div>
+</body>
+</html>
